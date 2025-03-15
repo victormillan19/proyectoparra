@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bajacar - Sistema de Gestión</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="window-controls">
+            <button class="control minimize"></button>
+            <button class="control maximize"></button>
+            <button class="control close"></button>
+        </div>
+        <img src="resources/bajacar.jpg" alt="Logo Bajacar" class="logo">
+        <h1 class="title">BAJACAR</h1>
+        <div class="user-icon">
+            <div class="user-initial" title="Usuario"></div> <!-- Inicial -->
+            <div class="dropdown" style="display: none;">
+              <ul>
+                <li><strong id="user-name"></strong></li>
+                <li id="user-email"></li>
+                <li><a href="/logout">Cerrar sesión</a></li>
+              </ul>
+            </div>
+        </div>
+    </header>
+    <div id="user-container">
+        <button id="user-button" class="user-button"></button>
+        <div id="user-dropdown" class="user-dropdown"></div>
+      </div>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="navbar">
+                <li><button data-target="home-section" class="nav-btn">Home</button></li>
+                <li><button data-target="add-product-section" class="nav-btn">Agregar Producto</button></li>
+                <li><button data-target="inventory-section" class="nav-btn">Inventario</button></li> 
+                <li><button data-target="stock-management" class="nav-btn">Actualizar Stock</button></li>
+                <li><button data-target="sales-section" class="nav-btn">Ventas</button></li>
+                <li><button data-target="losses-section" class="nav-btn">Pérdidas</button></li>
+                <li><button data-target="reports-section" class="nav-btn">Reportes</button></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section id="home-section" class="section">
+                <h2>Bienvenido a Bajacar</h2>
+                <p>Explora las opciones en la barra lateral para comenzar.</p>
+                <img src="resources/bajacar.jpg" alt="Logo Bajacar" class="logo-large"> <!-- Logo en grande -->
+            </section>
+
+            <section id="inventory-section" class="section hidden">
+                <h2>INVENTARIO BAJACAR</h2>
+                <!-- Input para buscar productos -->
+                <div>
+                  <input 
+                    type="text" 
+                    id="search-box" 
+                    placeholder="Buscar por nombre de producto..." 
+                    style="margin-bottom: 10px; width: 100%; padding: 10px; font-size: 16px;"
+                  />
+                </div>
+                <!-- Tabla para mostrar los productos -->
+                <table id="inventory-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                  <thead>
+                    <tr>
+                      <th>ID Producto</th>
+                      <th>Nombre</th>
+                      <th>Categoría</th>
+                      <th>Precio Compra</th>
+                      <th>Precio Venta</th>
+                      <th>Stock</th>
+                      <th>Descripción</th>
+                      <th>Fecha Creación</th>
+                      <th>Fecha Actualización</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Aquí se llenarán las filas dinámicamente -->
+                  </tbody>
+                </table>
+                <h2>Actualizar Stock</h2>
+                <!-- Campo para buscar productos -->
+                <div id="searchStockContainer">
+                    <input type="text" id="productSearch" placeholder="Buscar producto..." />
+                    <button id="searchButton">Buscar</button>
+                    
+                    <table id="productTable">
+                        <thead>
+                            <tr>
+                                <th>Seleccionar</th>
+                                <th>Nombre Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio Compra</th>
+                                <th>Precio Venta</th>
+                                <th>Stock Actual</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <!-- Campo para actualizar stock -->
+                <div id="updateFields">
+                    <h3>Actualizar Stock</h3>
+                    <input type="number" id="stockQuantity" placeholder="Cantidad a agregar" />
+                    <button id="submitStockUpdate">Actualizar Stock</button>
+                </div>
+              </section>
+
+            <!-- Agregar Producto -->
+            <section id="add-product-section" class="section hidden">
+                <h2>Agregar Producto</h2>
+                <form>
+                    <label for="product-name">Nombre del producto:</label>
+                    <input type="text" id="product-name" required>
+                    <label for="category">Categoría:</label>
+                    <input type="text" id="category" required>
+                    <label for="purchase-price">Precio de compra:</label>
+                    <input type="number" id="purchase-price" step="0.01" required>
+                    <label for="sale-price">Precio de venta:</label>
+                    <input type="number" id="sale-price" step="0.01" required>
+                    <label for="initial-stock">Cantidad inicial en stock:</label>
+                    <input type="number" id="initial-stock" required>
+                    <button type="submit">Agregar Producto</button>
+                </form>
+            </section>
+
+            <!-- Actualizar Stock -->
+           <!-- Actualizar Stock (sección que se ocultará inicialmente) -->
+           <div id="stock-management" class="section">
+            <h2>Gestión de Stock</h2>
+            <!-- Barra de búsqueda -->
+            <form id="search-form">
+              <input type="text" id="search-input" placeholder="Buscar producto por nombre" />
+              <button type="submit">Buscar</button>
+            </form>
+            
+            <!-- Tabla de productos -->
+            <table id="products-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="select-all" /></th>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th>Precio Compra</th>
+                  <th>Precio Venta</th>
+                  <th>Stock</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          
+            <!-- Botones de acciones -->
+            <div id="stock-actions">
+              <button id="update-stock">Actualizar Stock</button>
+              <button id="delete-products">Eliminar Seleccionados</button>
+            </div>
+          </div>
+                        
+            <!-- Ventas -->
+            <section id="sales-section" class="section hidden">
+                <h2>Ventas</h2>
+                <form>
+                    <label for="product-to-sell">Producto a vender:</label>
+                    <input type="text" id="product-to-sell" placeholder="Buscar producto por nombre" required>
+                    <label for="sell-quantity">Cantidad a vender:</label>
+                    <input type="number" id="sell-quantity" required>
+                    <button type="submit">Registrar Venta</button>
+                </form>
+                <div id="sales-list">
+                    <h3>Registro de Ventas</h3>
+                    <ul id="sales-record">
+                        <!-- Ventas se listarán aquí -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Pérdidas -->
+            <section id="losses-section" class="section hidden">
+                <h2>Pérdidas</h2>
+                <form>
+                    <label for="loss-category">Categoría de Pérdida:</label>
+                    <select id="loss-category">
+                        <option value="proveedor">Por Proveedor</option>
+                        <option value="personal">Por Personal</option>
+                    </select>
+                    <label for="loss-details">Detalles:</label>
+                    <textarea id="loss-details" placeholder="Explica brevemente la causa"></textarea>
+                    <button type="submit">Registrar Pérdida</button>
+                </form>
+                <div id="loss-list">
+                    <h3>Historial de Pérdidas</h3>
+                    <ul id="loss-record">
+                        <!-- Las pérdidas se mostrarán aquí -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Reportes -->
+            <section id="reports-section" class="section hidden">
+                <h2>Reportes de Inventario</h2>
+                <button id="generate-report-btn">Generar Reporte de Inventario (PDF)</button>
+                <div id="report-content" class="hidden">
+                    <h3>Reporte de Inventario</h3>
+                    <pre id="report-details"></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
